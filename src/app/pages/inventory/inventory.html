@@ -1,1 +1,71 @@
-<p>inventory works!</p>
+<div class="row mx-3">
+    <h2>Inventory</h2>
+    <hr>
+</div>
+<form (ngSubmit)="onSubmit(ngForm)" #ngForm="ngForm">
+    <div class="row mx-5">
+        <div class="col">
+            <label for="ProductID">ProductID</label>
+            <input [(ngModel)]="inventoryData.productId"
+            [disabled]="IsUpdated?true:false" name="productId" type="text" class="form-control"
+                placeholder="ProductID">
+        </div>
+        <div class="col">
+            <label for="ProductName">ProductName</label>
+            <input [(ngModel)]="inventoryData.productName" name="productName" type="text" class="form-control"
+                placeholder="Product Name">
+        </div>
+        <div class="col">
+            <label for="StockAvailable">Stock Available</label>
+
+            <input [(ngModel)]="inventoryData.stockAvailable" name="stockAvailable" type="text" class="form-control"
+                placeholder="Stock Available">
+        </div>
+        <div class="col">
+            <label for="ReorderStock">Re-Order Stock</label>
+
+            <input [(ngModel)]="inventoryData.reorderStock" name="reorderStock" type="text" class="form-control"
+                placeholder="Re-order Stock">
+        </div>
+    </div>
+    <div class="roq mx-5 mt-3">
+        <div class="col-lg-3">
+<button type="submit" class="btn btn-primary btn-block">
+  {{ IsUpdated ? 'Update Product' : 'Add Product' }}
+</button>        </div>
+    </div>
+</form>
+
+<div class="mt-5 mx-3">
+    <h3>Inventory Details</h3>
+</div>
+<div class="row mx-5">
+    <table class="table table-hover mx-3">
+        <thead>
+            <tr>
+                <th scope="col">Sno</th>
+                <th scope="col">ProductID</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Stock Available</th>
+                <th scope="col">ReOrder Stock</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let item of inventoryDto; let i = index; trackBy: trackByFn">
+                <th>{{i+1}}</th>
+                <th>{{item.ProductID}}</th>
+                <td>{{item.ProductName}}</td>
+                <td>{{item.StockAvailaible}}</td>
+                <td>{{item.ReOrderStock}}</td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm"
+                        (click)="DeleteProduct(item.ProductID)">Delete</button>&nbsp;
+                    <button type="button" class="btn btn-info btn-sm" (click)="UpdateProduct(item)">Edit</button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
